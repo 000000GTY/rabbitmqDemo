@@ -10,7 +10,7 @@ public class RabbitMqUtils {
         //创建一个连接工厂
         ConnectionFactory factory = new ConnectionFactory();
         //rabbitmq部署的主机ip
-        factory.setHost("192.168.231.133");
+        factory.setHost("192.168.231.135");
         factory.setUsername("admin");
         factory.setPassword("admin");
         Connection connection = factory.newConnection();

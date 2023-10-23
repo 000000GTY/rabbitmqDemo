@@ -2,10 +2,11 @@ package com.gty.rabbitTest.three;
 
 import com.gty.rabbitTest.utils.RabbitMqUtils;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
 
 import java.util.Scanner;
 
-//测试手动应答
+//测试队列持久化
 public class Producer {
     //
     public static final String QUEUE_NAME = "hello";
@@ -23,7 +24,7 @@ public class Producer {
          * @param arguments other properties (construction arguments) for the queue
          *                  队列的其他属性(构造参数)
          */
-        channel.queueDeclare(QUEUE_NAME,false,false,false,null);
+        channel.queueDeclare(QUEUE_NAME,true,false,false,null);
 
 
         /**
@@ -38,7 +39,7 @@ public class Producer {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()){
             String message=scanner.next();
-            channel.basicPublish("",QUEUE_NAME,null,message.getBytes());
+            channel.basicPublish("",QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN,message.getBytes());
             System.out.println("生产者发出消息");
         }
 

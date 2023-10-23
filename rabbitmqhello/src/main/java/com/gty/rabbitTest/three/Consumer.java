@@ -4,7 +4,7 @@ import com.gty.rabbitTest.utils.RabbitMqUtils;
 import com.rabbitmq.client.CancelCallback;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DeliverCallback;
-//测试手动应答
+//测试手动应答，不公平分发，预期值
 public class Consumer {
     public static final String QUEUE_NAME = "hello";
 
@@ -34,6 +34,11 @@ public class Consumer {
         CancelCallback cancelCallback=(consumerTag)->{
             System.out.println("消息消费被中断");
         };
+
+        //设置不公平分发
+//        channel.basicQos(1);
+        //设置预期值为2
+        channel.basicQos(2);
         //启动手动应答
         channel.basicConsume(QUEUE_NAME,false,deliverCallback,cancelCallback);
 

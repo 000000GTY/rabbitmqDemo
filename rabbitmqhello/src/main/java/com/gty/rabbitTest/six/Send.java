@@ -28,8 +28,7 @@ public class Send {
                 String message = bindingKeyEntry.getValue();
 
 
-                channel.basicPublish(EXCHANGE_NAME,bindingKey, null,
-                        message.getBytes("UTF-8"));
+                channel.basicPublish(EXCHANGE_NAME,bindingKey, null, message.getBytes("UTF-8"));
                 System.out.println("生产者发出消息:" + message);
             }
         }
